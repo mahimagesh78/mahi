@@ -30,7 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 "red chile"
               ],
               image: [
-                "https://b3067249.smushcdn.com/3067249/wp-content/uploads/2023/03/chicken-Biryani-848x477.jpg?lossy=0&strip=1&webp=1"
+                "https://b3067249.smushcdn.com/3067249/wp-content/uploads/2023/03/chicken-Biryani-848x477.jpg?lossy=0&strip=1&webp=1",
+                "https://c8.alamy.com/comp/MBH8E1/japanese-style-crab-soup-MBH8E1.jpg",
               ]),
           Menuitem(
               dishname: "crab soup",
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ], image: [
             "https://www.shutterstock.com/image-photo/homemade-dosa-dhosa-masala-plain-260nw-1597787986.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Dosa_and_ghee.jpg/800px-Dosa_and_ghee.jpg"
-          ])
+          ]),
         ]),
     RestaurantModel(
         typeOfFoodOffered: FoodTypes.nonveg,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zomatto/model/restaurant_model.dart';
+
+import '../model/restaurant_model.dart';
 
 class HotelScreen extends StatefulWidget {
   final RestaurantModel hotelname;
@@ -14,88 +15,116 @@ class _HotelScreenState extends State<HotelScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.hotelname.cuisine),
+        title: Text(widget.hotelname.name),
       ),
-      body: Scrollbar(
-        thumbVisibility: true,
-        interactive: true,
-        child: ListView(
-          padding: const EdgeInsets.all(15),
-          children: [
-            Image(
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
-              filterQuality: FilterQuality.low,
-              image: AssetImage(
-                widget.hotelname.imageUrl,
-              ),
+      body: ListView(
+        padding: EdgeInsets.all(16),
+        children: [
+          Image(
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.low,
+            image: AssetImage(
+              widget.hotelname.imageUrl,
             ),
-            Text(
-              widget.hotelname.cuisine,
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+          ),
+          Text(
+            widget.hotelname.cuisine,
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
             ),
-            Text(
-              widget.hotelname.minimumAmount.toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Text(
+            "₹" + widget.hotelname.minimumAmount.toString(),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
+          ),
+          ListView.separated(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemBuilder: (context, index) {
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           widget.hotelname.menu[index].dishname,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                            //wordSpacing: 0.5,
+                            fontSize: 18.0,
                           ),
                         ),
-                        Text(widget.hotelname.menu[index].ratings.toString()),
                         Text(
-                          widget.hotelname.menu[index].price.toString(),
-                          style: const TextStyle(
+                          widget.hotelname.menu[index].ratings.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14.0,
+                          ),
+                        ),
+                        Text(
+                          "₹" + widget.hotelname.menu[index].price.toString(),
+                          style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            fontSize: 14.0,
                           ),
                         ),
                         Wrap(
-                          spacing: 2,
-                          runSpacing: 10,
-                          alignment: WrapAlignment.spaceBetween,
+                          spacing: 8,
+                          runSpacing: 4,
+                          alignment: WrapAlignment.end,
                           children: widget.hotelname.menu[index].ingridient
                               .map((e) => Chip(label: Text(e)))
                               .toList(),
                         )
                       ],
                     ),
-                    ClipRRect(
+                  ),
+                  SizedBox(
+                    height: 100,
+                    width: 130,
+                    child: ClipRRect(
                       clipBehavior: Clip.hardEdge,
                       borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                          height: 100,
-                          widget.hotelname.menu[index].image.last,
-                          fit: BoxFit.cover),
+                      child: ListView.separated(
+                        physics: const PageScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: widget.hotelname.menu[index].image.length,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, inx) {
+                          return Image.network(
+                            height: 100,
+                            width: 130,
+                            widget.hotelname.menu[index].image[inx],
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            width: 8,
+                          );
+                        },
+                      ),
                     ),
-                  ],
-                );
-              },
-              separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: 16,
-                );
-              },
-              itemCount: widget.hotelname.menu.length,
-            )
-          ],
-        ),
+                  )
+                ],
+              );
+            },
+            separatorBuilder: (context, index) {
+              return SizedBox(
+                height: 16,
+              );
+            },
+            itemCount: widget.hotelname.menu.length,
+          ),
+        ],
       ),
     );
   }
