@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zomatto/home_screen.dart';
+import 'package:zomatto/bottom_navigation.dart';
+//import 'package:zomatto/bottom_navigation';
 import 'package:zomatto/login_screen.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: BottomNavigation(),
     );
   }
 }
